@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+using X.PagedList;
 
 namespace Tambaqui.Controllers
 {
@@ -12,18 +13,16 @@ namespace Tambaqui.Controllers
     {
         private readonly Contexto db;
 
-        public CoresController(Contexto contexto)
-        {
-            db = contexto;
-        }
+        public CoresController(Contexto contexto) => db = contexto;
 
         public async Task<IActionResult> Index(string search = "", int page = 1)
         {
             var lista = await db.Cores         
                 .Where(w => w.Nome.Contains(search))                
+                .OrderBy(w => w.Nome)
                 .AsNoTracking()
-                .ToListAsync();
-
+                .ToPagedListAsync(page, 5);
+          
             return View(lista);
         }
 

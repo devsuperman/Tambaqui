@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Tambaqui.Models.Carro>
+﻿@model IPagedList<Tambaqui.Models.Carro>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,10 @@
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Modelo)
+                    Modelo
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CorId)
+                    Cor
                 </th>
             <th></th>
         </tr>
@@ -39,3 +39,5 @@
 }
     </tbody>
 </table>
+
+@{await Html.RenderPartialAsync("_Paginacao");}

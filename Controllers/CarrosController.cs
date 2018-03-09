@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
+using X.PagedList;
 
 namespace Tambaqui.Controllers
 {
@@ -12,10 +12,7 @@ namespace Tambaqui.Controllers
     {
         private readonly Contexto db;
 
-        public CarrosController(Contexto contexto)
-        {
-            db = contexto;
-        }
+        public CarrosController(Contexto contexto) => db = contexto;
 
         public async Task<IActionResult> Index(string search = "", int page = 1)
         {
@@ -25,8 +22,10 @@ namespace Tambaqui.Controllers
                     w.Modelo.Contains(search) || 
                     w.Cor.Nome.Contains(search)
                 )
+                .OrderBy(a => a.Modelo)
+                .ThenBy(a => a.Cor.Nome)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToPagedListAsync(page, 4);
 
             return View(lista);
         }
@@ -53,7 +52,7 @@ namespace Tambaqui.Controllers
         }
 
         private async Task SetarViewbags()
-        {
+        {            
             ViewData["Cores"] = new SelectList(await db.Cores.ToListAsync(), "Id", "Nome" );
         }
 
@@ -62,13 +61,12 @@ namespace Tambaqui.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Add(carro);
-                
+                db.Add(carro);                
+
                 await db.SaveChangesAsync();
 
                 return RedirectToAction(nameof(Index));
-            }
-
+            }            
             await SetarViewbags();
             return View(carro);
         }
@@ -96,7 +94,7 @@ namespace Tambaqui.Controllers
             if (ModelState.IsValid)
             {
                 try
-                {
+                {                    
                     db.Update(carro);
                     await db.SaveChangesAsync();
                 }
@@ -105,8 +103,7 @@ namespace Tambaqui.Controllers
                     if (!CarroExists(carro.Id))                    
                         return NotFound();                    
                     else                    
-                        throw;
-                    
+                        throw;                    
                 }
                 return RedirectToAction(nameof(Index));
             }
