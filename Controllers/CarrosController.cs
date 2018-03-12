@@ -1,10 +1,10 @@
 using System.Linq;
+using X.PagedList;
 using Tambaqui.Models;
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using X.PagedList;
 
 namespace Tambaqui.Controllers
 {
