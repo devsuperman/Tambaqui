@@ -1,0 +1,13 @@
+@model Tambaqui.Models.CPFVM
+
+<form asp-action="Index">
+    <label asp-for="cpf"></label>
+    <input asp-for="cpf">
+    <span asp-validation-for="cpf"></span>
+
+    <button type="submit"> Salvar </button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

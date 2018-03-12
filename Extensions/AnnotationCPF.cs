@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,23 +10,26 @@ namespace Tambaqui.Extensions
     {
         public CPF()
         {
-
+            
         }
 
-        public override bool IsValid(object value)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value == null || string.IsNullOrEmpty(value.ToString()))
-                return true;
-            bool valido = ValidaCPF(value.ToString());
-            return valido;
-        }
+            string cpf = System.Convert.ToString(value);
 
+            if (!CpfEhValido(cpf))            
+                return new ValidationResult("CPF inválido");            
+
+            return ValidationResult.Success;
+        }               
 
         public void AddValidation(ClientModelValidationContext context)
         {
+            if (context == null)            
+                throw new ArgumentNullException(nameof(context));            
+
             MergeAttribute(context.Attributes, "data-val", "true");
-            var errorMessage = FormatErrorMessage(context.ModelMetadata.GetDisplayName());
-            MergeAttribute(context.Attributes, "data-val-cannotbered", errorMessage);
+            MergeAttribute(context.Attributes, "data-val-cpf", "CPF inválido");
         }
 
         private bool MergeAttribute(IDictionary<string, string> attributes, string key, string value)
@@ -37,27 +41,8 @@ namespace Tambaqui.Extensions
             return true;
         }
 
-
-        // public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-        // {
-        //     yield return new ModelClientValidationRule
-        //     {
-        //         //ErrorMessage = this.FormatErrorMessage(null),
-        //         ErrorMessage = "CPF inválido",
-        //         ValidationType = "cpf"
-        //     };
-        // }
-
-        public static string RemoveNaoNumericos(string text)
-        {
-            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"[^0-9]");
-            string ret = reg.Replace(text, string.Empty);
-            return ret;
-        }
-
-        public static bool ValidaCPF(string cpf)
-        {
-            //Remove formatação do número, ex: "123.456.789-01" vira: "12345678901"
+        public static bool CpfEhValido(string cpf)
+        {            
             cpf = RemoveNaoNumericos(cpf);
             if (cpf.Length > 11)
                 return false;
@@ -96,6 +81,13 @@ namespace Tambaqui.Extensions
                 if (numeros[10] != 11 - resultado)
                     return false;
             return true;
+        }
+        
+        public static string RemoveNaoNumericos(string text)
+        {
+            System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"[^0-9]");
+            string ret = reg.Replace(text, string.Empty);
+            return ret;
         }
 
         
