@@ -27,7 +27,7 @@ namespace Tambaqui.Controllers
 
             }
             
-            return View();
+            return View(model);
         }
        
     }

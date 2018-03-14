@@ -18,7 +18,7 @@ namespace Tambaqui.Extensions
             string cpf = System.Convert.ToString(value);
 
             if (!CpfEhValido(cpf))            
-                return new ValidationResult("CPF inválido");            
+                return new ValidationResult("CPF inválido Validatoin REsult");            
 
             return ValidationResult.Success;
         }               
@@ -28,17 +28,14 @@ namespace Tambaqui.Extensions
             if (context == null)            
                 throw new ArgumentNullException(nameof(context));            
 
-            MergeAttribute(context.Attributes, "data-val", "true");
-            MergeAttribute(context.Attributes, "data-val-cpfBR", "CPF inválido");
+            MergeAttribute(context.Attributes, "data-val", "true");            
+            MergeAttribute(context.Attributes, "data-val-cpfBR", "CPF inválido merge Atribuute");
         }
 
-        private bool MergeAttribute(IDictionary<string, string> attributes, string key, string value)
+        private void MergeAttribute(IDictionary<string, string> attributes, string key, string value)
         {
-            if (attributes.ContainsKey(key))            
-                return false;            
-
-            attributes.Add(key, value);
-            return true;
+            if (!attributes.ContainsKey(key))                        
+                attributes.Add(key, value);            
         }
 
         public static bool CpfEhValido(string cpf)

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Tambaqui
 {
@@ -20,6 +22,11 @@ namespace Tambaqui
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            // services.AddMvc().AddJsonOptions(options =>
+            //     {
+            //         options.SerializerSettings.DateFormatString = "dd/mm/yy, dddd";
+            //     });
+
             services.AddDbContext<Contexto>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("Contexto")));
         }
@@ -35,6 +42,10 @@ namespace Tambaqui
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+                        
+
+            
+            
 
             app.UseStaticFiles();
 
