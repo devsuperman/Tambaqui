@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace Tambaqui.Extensions
 {
@@ -29,7 +29,7 @@ namespace Tambaqui.Extensions
                 throw new ArgumentNullException(nameof(context));            
 
             MergeAttribute(context.Attributes, "data-val", "true");
-            MergeAttribute(context.Attributes, "data-val-cpf", "CPF inválido");
+            MergeAttribute(context.Attributes, "data-val-cpfBR", "CPF inválido");
         }
 
         private bool MergeAttribute(IDictionary<string, string> attributes, string key, string value)
