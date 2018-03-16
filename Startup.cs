@@ -21,14 +21,9 @@ namespace Tambaqui
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            // services.AddMvc().AddJsonOptions(options =>
-            //     {
-            //         options.SerializerSettings.DateFormatString = "dd/mm/yy, dddd";
-            //     });
-
-            services.AddDbContext<Contexto>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("Contexto")));
+            services.AddMvc();            
+            services.AddDbContext<Contexto>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("TambaquiDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,10 +38,6 @@ namespace Tambaqui
                 app.UseExceptionHandler("/Home/Error");
             }
                         
-
-            
-            
-
             app.UseStaticFiles();
 
             app.UseMvc(routes =>

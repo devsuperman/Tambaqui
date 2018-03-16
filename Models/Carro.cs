@@ -20,5 +20,6 @@ namespace Tambaqui.Models
         public DateTime? dataDeEdicao { get; set; }
 
         public override string ToString() => $"Modelo: {this.Modelo}, {this.Cor?.Nome}";
+        
     }
 }
