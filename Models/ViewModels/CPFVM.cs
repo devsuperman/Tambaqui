@@ -13,7 +13,7 @@ namespace Tambaqui.Models
             public System.DateTime data { get; set; }
 
 
-            [Required, Display(Name="Decimal")]
+            [Required, Display(Name="Decimal"), DataType(DataType.Currency)]
             public double numero { get; set; }
 
 
