@@ -1,12 +1,12 @@
 # Tambaqui
 
-
-Coisas que já tem
+Done
 * CRUD com métodos assincronos
-* 
+* Dropdown com Select2 carregando com AJAX
 
-Coisas a fazer
-* ativar e desativar registro por json
-* excluir registro genérico por json
+To Do
+* Script com sweetalert para confirmar operação
+* Buscar endereço por CEP via API
+* Enxugar tema
 
 
