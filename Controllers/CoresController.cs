@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using X.PagedList;
+using Tambaqui.Helpers;
 
 namespace Tambaqui.Controllers
 {
@@ -21,7 +22,7 @@ namespace Tambaqui.Controllers
                 .Where(w => w.Nome.Contains(search))                
                 .OrderBy(w => w.Nome)
                 .AsNoTracking()
-                .ToPagedListAsync(page, 5);
+                .ToPagedListAsync(page, PaginacaoHelper.TamanhoDePaginaPadrao);
           
             return View(lista);
         }
@@ -49,7 +50,7 @@ namespace Tambaqui.Controllers
         
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Nome")] Cor cor)
+        public async Task<IActionResult> Create(Cor cor)
         {
             if (ModelState.IsValid)
             {
@@ -66,7 +67,7 @@ namespace Tambaqui.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)            
-                return NotFound();
+                return BadRequest();
             
             var cor = await db.Cores.SingleOrDefaultAsync(m => m.Id == id);
             
@@ -77,59 +78,19 @@ namespace Tambaqui.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome")] Cor cor)
-        {
-            if (id != cor.Id)            
-                return NotFound();
+        public async Task<IActionResult> Edit(Cor cor)
+        {           
             
             if (ModelState.IsValid)
             {
-                try
-                {
-                    db.Update(cor);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!corExists(cor.Id))                    
-                        return NotFound();                    
-                    else                    
-                        throw;
-                    
-                }
+                
+                db.Update(cor);
+                await db.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             return View(cor);
-        }
-        
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)            
-                return NotFound();
-            
-            var cor = await db.Cores.SingleOrDefaultAsync(m => m.Id == id);
-            
-            if (cor == null)            
-                return NotFound();            
+        }     
 
-            return View(cor);
-        }
-
-        
-        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var cor = await db.Cores.SingleOrDefaultAsync(m => m.Id == id);
-            
-            db.Cores.Remove(cor);
-            await db.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool corExists(int id)
-        {
-            return db.Cores.Any(e => e.Id == id);
-        }
     }
 }

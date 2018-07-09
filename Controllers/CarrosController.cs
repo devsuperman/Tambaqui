@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Tambaqui.Helpers;
 
 namespace Tambaqui.Controllers
 {
@@ -15,7 +16,9 @@ namespace Tambaqui.Controllers
         public CarrosController(Contexto contexto) => db = contexto;
 
         public async Task<IActionResult> Index(string search = "", int page = 1)
-        {
+        {                        
+            search = search is null ? "" : search;
+            
             var lista = await db.Carros
                 .Include(q => q.Cor)
                 .Where(w => 
@@ -25,7 +28,7 @@ namespace Tambaqui.Controllers
                 .OrderBy(a => a.Modelo)
                 .ThenBy(a => a.Cor.Nome)
                 .AsNoTracking()
-                .ToPagedListAsync(page, 4);
+                .ToPagedListAsync(page, PaginacaoHelper.TamanhoDePaginaPadrao);
 
             return View(lista);
         }
@@ -34,7 +37,7 @@ namespace Tambaqui.Controllers
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)            
-                return NotFound();            
+                return BadRequest();            
 
             var carro = await db.Carros.Include(q => q.Cor).SingleOrDefaultAsync(m => m.Id == id);
             
@@ -47,17 +50,18 @@ namespace Tambaqui.Controllers
         
         public async Task<IActionResult> Create()
         {
-            await SetarViewbags();
+            await CarregarViewbags();
             return View();
         }
 
-        private async Task SetarViewbags()
+        private async Task CarregarViewbags()
         {            
+            var cores = await db.Cores.Select(a => new{a.Id ,a.Nome}).ToListAsync();
             ViewData["Cores"] = new SelectList(await db.Cores.ToListAsync(), "Id", "Nome" );
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Modelo,CorId")] Carro carro)
+        public async Task<IActionResult> Create(Carro carro)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +71,7 @@ namespace Tambaqui.Controllers
 
                 return RedirectToAction(nameof(Index));
             }            
-            await SetarViewbags();
+            await CarregarViewbags();
             return View(carro);
         }
         
@@ -81,64 +85,24 @@ namespace Tambaqui.Controllers
             if (carro == null)            
                 return NotFound();
             
-            await SetarViewbags();
+            await CarregarViewbags();
             return View(carro);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Modelo,CorId")] Carro carro)
-        {
-            if (id != carro.Id)            
-                return NotFound();
-            
+        public async Task<IActionResult> Edit(Carro carro)
+        {   
             if (ModelState.IsValid)
             {
-                try
-                {                    
-                    db.Update(carro);
-                    await db.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CarroExists(carro.Id))                    
-                        return NotFound();                    
-                    else                    
-                        throw;                    
-                }
+                db.Update(carro);
+                await db.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            await SetarViewbags();
+
+            await CarregarViewbags();
             return View(carro);
         }
         
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)            
-                return NotFound();
-            
-            var carro = await db.Carros.Include(q => q.Cor).SingleOrDefaultAsync(m => m.Id == id);
-            
-            if (carro == null)            
-                return NotFound();            
-
-            return View(carro);
-        }
-
-        
-        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var carro = await db.Carros.Include(q => q.Cor).SingleOrDefaultAsync(m => m.Id == id);
-            
-            db.Carros.Remove(carro);
-            await db.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CarroExists(int id)
-        {
-            return db.Carros.Any(e => e.Id == id);
-        }
     }
 }

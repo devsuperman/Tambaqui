@@ -6,8 +6,6 @@ $(document).ready(function(){
     });
 
 
-
-
     //Select2 Assíncrono, bom para listar munícipios!!!
     var url_buscarMunicipio = '/municipios/listar';
     $('.carregarMunicipios').select2({
