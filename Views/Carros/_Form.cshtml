@@ -1,0 +1,25 @@
+@model Carro
+
+@{
+    Layout  = null;
+}
+
+<div class="form-group">
+    <label asp-for="Modelo" class="control-label"></label>
+    <input asp-for="Modelo" class="form-control" />
+    <span asp-validation-for="Modelo" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="CorId" class="control-label"></label>
+    <select asp-for="CorId" class="form-control" asp-items="ViewBag.Cores">
+        <option> Selecione</option>
+    </select>
+    <span asp-validation-for="CorId" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+    <label asp-for="DataDeLancamento" class="control-label"></label>
+    <input asp-for="DataDeLancamento" class="form-control" />
+    <span asp-validation-for="DataDeLancamento" class="text-danger"></span>
+</div>

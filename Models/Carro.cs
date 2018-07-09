@@ -10,14 +10,17 @@ namespace Tambaqui.Models
         [Required]      
         public string Modelo { get; set; }
         
+        [Required, Display(Name ="Data de Lançamento"), DataType(DataType.Date)]
+        public DateTime DataDeLancamento { get; set; }
+
         [Required, Display(Name ="Cor")]
         public int CorId { get; set; }
 
         public Cor Cor { get; set; }
         
-        public DateTime dataDeCadastro { get; set; } = new DateTime();
+        public DateTime DataDeCadastro { get; set; } = new DateTime();
 
-        public DateTime? dataDeEdicao { get; set; }
+        public DateTime? DataDeEdicao { get; set; }
 
         public override string ToString() => $"Modelo: {this.Modelo}, {this.Cor?.Nome}";
         
