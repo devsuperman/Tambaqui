@@ -24,6 +24,8 @@ namespace Tambaqui.Models
         public string Email { get; set; }
 
         public DateTime DataDeCadastro { get; set; } = new DateTime();
-        public DateTime? DataDeEdicao { get; set; }                
+        public DateTime? DataDeEdicao { get; set; }    
+
+        public Endereco Endereco { get; set; }            
     }
 }

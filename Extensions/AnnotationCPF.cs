@@ -18,7 +18,7 @@ namespace Tambaqui.Extensions
             string cpf = System.Convert.ToString(value);
 
             if (!CpfEhValido(cpf))            
-                return new ValidationResult("CPF inválido Validatoin REsult");            
+                return new ValidationResult("CPF inválido");            
 
             return ValidationResult.Success;
         }               
