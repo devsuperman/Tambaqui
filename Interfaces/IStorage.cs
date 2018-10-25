@@ -8,9 +8,6 @@ namespace Tambaqui.Interfaces
     {
         Task Upload(IAnexo anexo, IFormFile arquivo);
         Task<byte[]> Download(IAnexo anexo);
-        Task Excluir(IAnexo anexo);
-
-        //Ao realizar upload sempre é necessário atribuir um localizador!!!
-        // void AtribuirLocalizador(IAnexo anexo);
+        Task Excluir(IAnexo anexo);        
     }    
 }

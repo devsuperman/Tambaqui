@@ -4,8 +4,6 @@ $(document).ready(function(){
     $('select').select2({
         language: "pt-BR"
     });
-
-
     
     $('.ConfirmarSubmit').click(function (e) {
         e.preventDefault();
@@ -27,13 +25,13 @@ $(document).ready(function(){
     });
 
     //Select2 Assíncrono, bom para listar munícipios!!!
-    var url_buscarMunicipio = '/municipios/listar';
-    $('.carregarMunicipios').select2({
+    var url_lista = '/controller/listar';
+    $('.carregarListaAsync').select2({
         placeholder: "Selecione",
         language: "pt-BR",
         minimumInputLength: 3,
         ajax: {
-            url: url_buscarMunicipio,
+            url: url_lista,
             dataType: 'json',
             delay: 250,
             data: function (params) {
