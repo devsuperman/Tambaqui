@@ -6,6 +6,7 @@ Done
 * Modelo de Dropdown Select2 carregando com AJAX
 * Annotation de CPF com validação no back e front
 * Script para impedir que usuário clique mais de uma vez no mesmo submit
+* Script para alterar validação do ponto pela virgula em inputs de valores monetários
 * Buscar endereço por CEP via API
 * Classe de implementação da API de Storage do Azure
 * Classe de armazenamento de arquivos na raiz do projeto
