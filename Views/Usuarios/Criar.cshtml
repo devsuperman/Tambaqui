@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Novo Usuário";    
+}
+
+<form asp-for="Criar" method="POST">    
+    <partial name="_Form"/>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

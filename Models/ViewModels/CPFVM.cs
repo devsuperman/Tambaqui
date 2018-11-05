@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Tambaqui.Extensions;
 
-namespace Tambaqui.Models
+namespace Tambaqui.ViewModels
 {
         public class CPFVM
         {

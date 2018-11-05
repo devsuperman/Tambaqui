@@ -6,7 +6,7 @@ using Tambaqui.Models;
 using System.IO;
 using System;
 
-namespace Administrativo.Services
+namespace Tambaqui.Services
 {
     public class ServidorLocal : IStorage
     {

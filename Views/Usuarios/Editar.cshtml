@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "Editar Usuário";    
+}
+
+<form asp-for="Editar" method="POST">
+    @Html.Hidden("Id")            
+    <partial name="_Form"/>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

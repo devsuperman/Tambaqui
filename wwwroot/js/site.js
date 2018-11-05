@@ -1,6 +1,8 @@
 ﻿
 $(document).ready(function(){
 
+    CarregarDropdownDaSidebar();
+
     $('select').select2({
         language: "pt-BR"
     });
@@ -23,6 +25,23 @@ $(document).ready(function(){
                 }
             });
     });
+
+    //Ativar ou Desativar registros. Elementos HTML estão em _AcoesIndex.cshtml
+    $('.InverterAtivo').click(function(){
+
+        var $check = $(this);
+        var $form = $(this).closest('form');                
+        var url = $form.prop('action');
+        var data = $form.serialize();
+
+        $.post(url, data)        
+        .fail(function(err) { 
+            $check.prop('checked', !$check.prop('checked'));
+            alert('Um Erro foi encontrado. Se o erro persistir, contate o suporte técnico.');
+        });       
+        
+    });  
+
 
     //Select2 Assíncrono, bom para listar munícipios!!!
     var url_lista = '/controller/listar';
@@ -50,3 +69,21 @@ $(document).ready(function(){
 
 });
 
+function CarregarDropdownDaSidebar() {   
+
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+    for (i = 0; i < dropdown.length; i++) {
+        
+        dropdown[i].addEventListener("click", function () {            
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            }
+            else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+}

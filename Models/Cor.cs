@@ -4,10 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tambaqui.Models
 {
-    public class Cor
+    public class Cor : Registro
     {
-        public int Id { get; set; }        
-
         [Required]
         public string Nome { get; set; }
         

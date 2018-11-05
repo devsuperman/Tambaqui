@@ -3,8 +3,6 @@ using Tambaqui.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using X.PagedList;
 using Tambaqui.Helpers;
 
@@ -91,6 +89,22 @@ namespace Tambaqui.Controllers
             }
             return View(cor);
         }     
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> InverterAtivo(int id)
+        {
+            var model = await db.Cores.FindAsync(id);
+
+            if (model is null)
+                return NotFound();
+
+            model.InverterAtivo();
+            
+            db.Update(model);
+            await db.SaveChangesAsync();
+
+            return Ok();
+        }
 
     }
 }

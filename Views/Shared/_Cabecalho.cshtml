@@ -1,0 +1,28 @@
+﻿
+@{
+    var action = ViewContext.RouteData.Values["action"].ToString();
+    var controller = ViewContext.RouteData.Values["controller"].ToString();
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    
+    <h1 class="h2">
+        @if (!(controller.Equals("Home") && action.Equals("Index")))
+        {            
+            <a asp-action="index" asp-controller='@(action.Equals("Index") ? "Home" : controller)' title="Voltar">                    
+                <i class="far fa-arrow-alt-circle-left"></i>
+            </a>
+        }    
+    
+         @ViewBag.Title 
+         
+    </h1>    
+
+    @if (!controller.Equals("Home") && action.Equals("Index"))
+    {
+        <a asp-action="Criar" class="btn btn-link">
+            <i class="fa fa-plus-circle"></i>
+            Novo Registro
+        </a>
+    }
+</div>
