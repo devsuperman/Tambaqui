@@ -1,7 +1,6 @@
-# Tambaqui
-Utilidades públicas!!!
+# Tambaqui - Utilidades públicas!!!
 
-Done
+### Done
 * Modelo de Controller e Action  para CRUDs simples
 * Modelo de Dropdown Select2 carregando com AJAX
 * Annotation de CPF com validação no back e front
@@ -19,7 +18,7 @@ Done
 * Script para alterar validação do ponto pela virgula em inputs de valores monetários
 * Script com sweetalert para confirmar operação
 
-To Do
+### To Do
 * Ajustar layout das views
 
 
