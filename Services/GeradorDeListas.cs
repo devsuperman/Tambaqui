@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Tambaqui.Services
 {
-    public class SelectListTop
+    public class GeradorDeListas
     {
         private readonly Contexto db;
 
-        public SelectListTop(Contexto db)
+        public GeradorDeListas(Contexto db)
         {
             this.db = db;
         }

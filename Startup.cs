@@ -34,7 +34,7 @@ namespace Tambaqui
             services.AddHttpContextAccessor();
             
             services.AddTransient<Services.TiaIdentity>();
-            services.AddTransient<Services.SelectListTop>();
+            services.AddTransient<Services.GeradorDeListas>();
             
             services.AddTransient<ICodificador, CodificadorSHA>();
 

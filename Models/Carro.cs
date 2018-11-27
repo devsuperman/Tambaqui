@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Tambaqui.Models
 {
-    public class Carro
+    public class Carro : Registro
     {        
-        public int Id { get; set; }  
 
         [Required]      
         public string Modelo { get; set; }
@@ -16,13 +15,7 @@ namespace Tambaqui.Models
         [Required, Display(Name ="Cor")]
         public int CorId { get; set; }
 
-        public Cor Cor { get; set; }
-        
-        public DateTime DataDeCadastro { get; set; } = new DateTime();
-
-        public DateTime? DataDeEdicao { get; set; }
-
-        public override string ToString() => $"Modelo: {this.Modelo}, {this.Cor?.Nome}";
+        public Cor Cor { get; set; }       
         
     }
 }

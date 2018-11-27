@@ -44,28 +44,28 @@ $(document).ready(function(){
 
 
     //Select2 Assíncrono, bom para listar munícipios!!!
-    var url_lista = '/controller/listar';
-    $('.carregarListaAsync').select2({
-        placeholder: "Selecione",
-        language: "pt-BR",
-        minimumInputLength: 3,
-        ajax: {
-            url: url_lista,
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    search: params.term
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: data
-                }
-            },
-            cache: true
-        }
-    });
+    // var url_lista = '/controller/listar';
+    // $('.carregarListaAsync').select2({
+    //     placeholder: "Selecione",
+    //     language: "pt-BR",
+    //     minimumInputLength: 3,
+    //     ajax: {
+    //         url: url_lista,
+    //         dataType: 'json',
+    //         delay: 250,
+    //         data: function (params) {
+    //             return {
+    //                 search: params.term
+    //             };
+    //         },
+    //         processResults: function (data) {
+    //             return {
+    //                 results: data
+    //             }
+    //         },
+    //         cache: true
+    //     }
+    // });
 
 });
 

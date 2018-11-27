@@ -7,6 +7,6 @@ namespace Tambaqui.Interfaces
     {        
         string Localizacao { get; set; }         
         string Nome { get; set; }
-        Task SalvarArquivo(IFormFile arquivo, IStorage storage); 
+        Task SubstituirAnexo(IFormFile arquivo, IStorage storage); 
     }
 }

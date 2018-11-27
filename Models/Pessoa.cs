@@ -4,10 +4,8 @@ using Tambaqui.Extensions;
 
 namespace Tambaqui.Models
 {
-    public class Pessoa
-    {        
-        public int Id { get; set; }  
-
+    public class Pessoa : Registro
+    {   
         [Required]      
         public string Nome { get; set; }
         
@@ -22,9 +20,6 @@ namespace Tambaqui.Models
 
         [EmailAddress]
         public string Email { get; set; }
-
-        public DateTime DataDeCadastro { get; set; } = new DateTime();
-        public DateTime? DataDeEdicao { get; set; }    
 
         public Endereco Endereco { get; set; }            
     }

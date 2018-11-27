@@ -1,7 +1,7 @@
 using System.Linq;
-using X.PagedList;
+
 using Tambaqui.Models;
-using Tambaqui.Helpers;
+
 using Tambaqui.Services;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,28 +13,20 @@ namespace Tambaqui.Controllers
     public class CarrosController : Controller
     {
         private readonly Contexto db;
-        private readonly SelectListTop selectListTop;
+        private readonly GeradorDeListas selectListTop;
 
-        public CarrosController(Contexto db, SelectListTop selectListTop)
+        public CarrosController(Contexto db, GeradorDeListas selectListTop)
         {
             this.db = db;
             this.selectListTop = selectListTop;
         } 
 
-        public async Task<IActionResult> Index(string search = "", int page = 1)
+        public async Task<IActionResult> Index()
         {                        
-            search = search is null ? "" : search;
-            
             var lista = await db.Carros
-                .Include(q => q.Cor)
-                .Where(w => 
-                    w.Modelo.Contains(search) || 
-                    w.Cor.Nome.Contains(search)
-                )
-                .OrderBy(a => a.Modelo)
-                .ThenBy(a => a.Cor.Nome)
+                .Include(q => q.Cor)                                
                 .AsNoTracking()
-                .ToPagedListAsync(page, PaginacaoHelper.TamanhoDePaginaPadrao);
+                .ToListAsync();
 
             return View(lista);
         }
@@ -53,7 +45,7 @@ namespace Tambaqui.Controllers
         }
 
         
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Criar()
         {
             await CarregarViewbags();
             return View();
@@ -65,7 +57,7 @@ namespace Tambaqui.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Carro carro)
+        public async Task<IActionResult> Criar(Carro carro)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +71,7 @@ namespace Tambaqui.Controllers
             return View(carro);
         }
         
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Editar(int id)
         {            
             var carro = await db.Carros.SingleOrDefaultAsync(m => m.Id == id);
             
@@ -91,7 +83,7 @@ namespace Tambaqui.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Carro carro)
+        public async Task<IActionResult> Editar(Carro carro)
         {   
             if (ModelState.IsValid)
             {

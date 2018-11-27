@@ -9,12 +9,6 @@ namespace Tambaqui.Models
         [Required]
         public string Nome { get; set; }
         
-        public DateTime dataDeCadastro { get; set; } = new DateTime();
-
-        public DateTime? dataDeEdicao { get; set; }
-
-        public ICollection<Carro> Carros {get; set;}
-
-        public override string ToString() => $"{this.Nome}";
+        public ICollection<Carro> Carros {get; set;}        
     }
 }

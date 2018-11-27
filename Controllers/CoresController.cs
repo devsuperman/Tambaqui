@@ -3,8 +3,8 @@ using Tambaqui.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using X.PagedList;
-using Tambaqui.Helpers;
+
+
 
 namespace Tambaqui.Controllers
 {
@@ -14,19 +14,17 @@ namespace Tambaqui.Controllers
 
         public CoresController(Contexto contexto) => db = contexto;
 
-        public async Task<IActionResult> Index(string search = "", int page = 1)
+        public async Task<IActionResult> Index()
         {
-            var lista = await db.Cores         
-                .Where(w => w.Nome.Contains(search))                
-                .OrderBy(w => w.Nome)
+            var lista = await db.Cores                         
                 .AsNoTracking()
-                .ToPagedListAsync(page, PaginacaoHelper.TamanhoDePaginaPadrao);
+                .ToListAsync();
           
             return View(lista);
         }
 
 
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Detalhes(int? id)
         {
             if (id == null)            
                 return NotFound();            
@@ -40,7 +38,7 @@ namespace Tambaqui.Controllers
         }
 
         
-        public ActionResult Create()
+        public ActionResult Criar()
         {        
             return View();
         }
@@ -48,7 +46,7 @@ namespace Tambaqui.Controllers
         
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Cor cor)
+        public async Task<IActionResult> Criar(Cor cor)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +60,7 @@ namespace Tambaqui.Controllers
             return View(cor);
         }
         
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Editar(int? id)
         {
             if (id == null)            
                 return BadRequest();
@@ -76,7 +74,7 @@ namespace Tambaqui.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Cor cor)
+        public async Task<IActionResult> Editar(Cor cor)
         {           
             
             if (ModelState.IsValid)

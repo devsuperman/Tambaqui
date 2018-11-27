@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Tambaqui.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Tambaqui.Interfaces;
 
 namespace Tambaqui.Controllers
 {    
@@ -15,10 +16,12 @@ namespace Tambaqui.Controllers
     {
         private readonly Contexto db;
         private readonly TiaIdentity tiaIdentity;
+        private readonly IEmail email;
 
-        public UsuariosController(Contexto db, TiaIdentity tiaIdentity)
+        public UsuariosController(Contexto db, TiaIdentity tiaIdentity, IEmail email)
         {
             this.db = db;
+            this.email = email;
             this.tiaIdentity = tiaIdentity;
         }        
         
@@ -55,7 +58,7 @@ namespace Tambaqui.Controllers
                 await db.AddAsync(usuario);
                 await db.SaveChangesAsync();
                 
-                await tiaIdentity.EnviarEmailParaCriacaoDeSenha(usuario);
+                await email.EnviarEmailParaCriacaoDeSenha(usuario.Email, usuario.Hash);
 
                 return RedirectToAction(nameof(Index));
             }

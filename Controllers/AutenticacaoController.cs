@@ -16,10 +16,12 @@ namespace Tambaqui.Controllers
         private readonly Contexto db;
         private readonly TiaIdentity tiaIdentity;        
         private readonly ICodificador codificador;
+        private readonly IEmail servicoDeEmail;
 
-        public AutenticacaoController(Contexto db, TiaIdentity tiaIdentity, ICodificador codificador)
+        public AutenticacaoController(Contexto db, TiaIdentity tiaIdentity, ICodificador codificador, IEmail servicoDeEmail)
         {
             this.db = db;
+            this.servicoDeEmail = servicoDeEmail;
             this.tiaIdentity = tiaIdentity;            
             this.codificador = codificador;
         }        
@@ -72,7 +74,7 @@ namespace Tambaqui.Controllers
             db.Update(usuario);
             await db.SaveChangesAsync();
 
-            await tiaIdentity.EnviarEmailParaTrocaDeSenha(usuario);                
+            await servicoDeEmail.EnviarEmailParaTrocaDeSenha(usuario.Email, usuario.Hash);                
 
             return Ok();
         }

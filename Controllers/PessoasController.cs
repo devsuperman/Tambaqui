@@ -1,11 +1,11 @@
 using System.Linq;
-using X.PagedList;
+
 using Tambaqui.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Tambaqui.Helpers;
+
 
 namespace Tambaqui.Controllers
 {
@@ -15,18 +15,11 @@ namespace Tambaqui.Controllers
 
         public PessoasController(Contexto contexto) => db = contexto;
 
-        public async Task<IActionResult> Index(string search = "", int page = 1)
+        public async Task<IActionResult> Index()
         {                        
-            search = search is null ? "" : search;
-            
             var lista = await db.Pessoas                
-                .Where(w => 
-                    w.Nome.ToLower().Contains(search) || 
-                    w.Email.ToLower().Contains(search)
-                )
-                .OrderBy(a => a.Nome)                
                 .AsNoTracking()
-                .ToPagedListAsync(page, PaginacaoHelper.TamanhoDePaginaPadrao);
+                .ToListAsync();
 
             return View(lista);
         }
@@ -46,14 +39,14 @@ namespace Tambaqui.Controllers
         }
 
         
-        public IActionResult Create()
+        public IActionResult Criar()
         {
             return View();
         }
 
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Pessoa model)
+        public async Task<IActionResult> Criar(Pessoa model)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +60,7 @@ namespace Tambaqui.Controllers
             return View(model);
         }
         
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Editar(int? id)
         {
             if (id == null)            
                 return NotFound();
@@ -81,7 +74,7 @@ namespace Tambaqui.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Pessoa model)
+        public async Task<IActionResult> Editar(Pessoa model)
         {   
             if (ModelState.IsValid)
             {

@@ -8,20 +8,31 @@ namespace Tambaqui.Models
 {
     public class Anexo : IAnexo
     {
-        [MaxLength(50), Key]
-        public string Localizacao { get; set; } 
+        public Anexo()
+        {
 
-        [MaxLength(50)]
-        public string Nome { get; set; }
+            
+        }
+        public Anexo(IFormFile arquivo)
+        {
+            this.Nome = arquivo.FileName;
+            this.Mime = arquivo.ContentType;
+        }
+        
+        public int Id { get; set; }
+        public string Mime { get; set; }
+        public string Nome { get; set; }        
+        public string LocalizadorDoAnexo { get; private set; } = Guid.NewGuid().ToString();
+        public string Localizacao { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public async Task SalvarArquivo(IFormFile arquivo, IStorage storage)
-        {   
-            //Se for editar, só altera o arquivo, a localização é a mesma.
-            if (string.IsNullOrWhiteSpace(Localizacao))            
-                Localizacao = Guid.NewGuid().ToString();                
+       
 
-            Nome = arquivo.FileName;
-            await storage.Upload(this, arquivo);
+        public async Task SubstituirAnexo(IFormFile novoArquivo, IStorage storage)
+        {	
+            this.Nome = novoArquivo.FileName;
+            this.Mime = novoArquivo.ContentType;			
+			await storage.Excluir(this);			
+			await storage.Upload(this, novoArquivo);			
         }
     }
 }
