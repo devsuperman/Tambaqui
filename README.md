@@ -18,9 +18,6 @@
 * Script para alterar validação do ponto pela virgula em inputs de valores monetários
 * Script com sweetalert para confirmar operação
 
-### To Do
-* Ajustar layout das views
-
 
 
 
