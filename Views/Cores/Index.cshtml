@@ -4,29 +4,24 @@
     ViewBag.Title = "Cores";
 }
 
+<a asp-action="Criar" class="btn btn-link">
+    <i class="fa fa-plus-circle"></i>
+    Nova Cor
+</a>
+
 @if (Model.Any())
 {
-    <table class="table table-hover datatable-show-all">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Ativo / Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td> @item.Nome </td>
-                    <td>
-                        <partial name="_AcoesIndex" Model="@item" />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    foreach (var item in Model)
+    {        
+        <li class="list-group-item">
+            <a asp-action='Editar' asp-route-id='@item.Id'>            
+                <p class='tituloDaLista'> @item.Nome </p>
+                <p class='conteudoDaLista'> @item.DataDeCadastro.ToShortDateString() </p>                
+            </a>
+        </li>    
+    }
 }
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_DataTable");} 
+else
+{
+    <partial name="_NaoHaRegistros"/>
 }

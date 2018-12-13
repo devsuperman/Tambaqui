@@ -1,7 +1,7 @@
 ﻿
 $(document).ready(function(){
 
-    CarregarDropdownDaSidebar();
+    // CarregarDropdownDaSidebar();
 
     $('select').select2({
         language: "pt-BR"
@@ -12,18 +12,20 @@ $(document).ready(function(){
 
         var $form = $(this).closest('form');
 
-        swal({
+        Swal({
             title: "Tem certeza?",
             text: "A operação não poderá ser desfeita!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: 'Sim, quero continuar!',
+            cancelButtonText: 'Cancelar',
+            cancelButtonColor: '#d33'                        
         })
-            .then((confirmado) => {
-                if (confirmado) {
-                    $form.submit();
-                }
-            });
+        .then((confirmado) => {
+            if (confirmado) {
+                $form.submit();
+            }
+        });
     });
 
     //Ativar ou Desativar registros. Elementos HTML estão em _AcoesIndex.cshtml
@@ -69,21 +71,21 @@ $(document).ready(function(){
 
 });
 
-function CarregarDropdownDaSidebar() {   
+// function CarregarDropdownDaSidebar() {   
 
-    var dropdown = document.getElementsByClassName("dropdown-btn");
-    var i;
-    for (i = 0; i < dropdown.length; i++) {
+//     var dropdown = document.getElementsByClassName("dropdown-btn");
+//     var i;
+//     for (i = 0; i < dropdown.length; i++) {
         
-        dropdown[i].addEventListener("click", function () {            
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            }
-            else {
-                dropdownContent.style.display = "block";
-            }
-        });
-    }
-}
+//         dropdown[i].addEventListener("click", function () {            
+//             this.classList.toggle("active");
+//             var dropdownContent = this.nextElementSibling;
+//             if (dropdownContent.style.display === "block") {
+//                 dropdownContent.style.display = "none";
+//             }
+//             else {
+//                 dropdownContent.style.display = "block";
+//             }
+//         });
+//     }
+// }

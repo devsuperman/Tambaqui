@@ -1,61 +1,54 @@
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-  <div class="sidebar-sticky">
-    <ul class="nav flex-column">     
-      <li class="nav-item">
-        <a class="nav-link active" asp-action="Index" asp-controller="Home">
-            <i class="fa fa-home"></i>            
-              Início
-        </a>
-      </li>
-      
-      <li class="nav-item">
-        <a class="nav-link" asp-action="Index" asp-controller="Carros">
-            <i class="fa fa-truck"></i>
-              Carros
-        </a>
-      </li>
+@{    
+    var controller = ViewContext.RouteData.Values["controller"].ToString();
+}
 
-     
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  
+  <div class='container'>
 
-      <li class="nav-item">
-        <a class="nav-link" asp-action="Index" asp-controller="Pessoas">
-            <i class="fa fa-users"></i>
-              Pessoas
-        </a>
-      </li>
+    <button class="navbar-toggler collapsed mr-3" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <li class="nav-item">
-        <a class="nav-link dropdown-btn" href="#">
-          <i class="fa fa-arrow-down"></i>
-          Auxiliares
-        </a>
-        <div class="dropdown-container">
-          
-          <a class="nav-link" asp-action="Index" asp-controller="Cores">
-            <i class="fa fa-minus"></i>
-            Cores
-          </a>          
+    <a class="navbar-brand" href="#"> 
+        
+        <div class='d-block d-md-none'>
+            @ViewBag.Title 
+        </div>                   
 
-        </div>
-      </li>
+    </a>
 
-    </ul>
+    <div class="navbar-collapse collapse" id="navbarCollapse" style="">
 
-    @if(User.IsInRole("Administrador"))
-    {
-      <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-        <span>Administrador</span>      
-      </h6>
+        <ul class="navbar-nav mr-auto">
 
-      <ul class="nav flex-column mb-2">      
-      
-          <li class="nav-item">
-            <a class="nav-link" asp-action="Index" asp-controller="Usuarios">
-                    <i class="fa fa-users"></i>
-                    Usuários
-                </a>
-          </li>  
-      </ul>
-      }
+            <li class='nav-item @(controller is "Home" ? "active" : "")'>
+                <a class='nav-link' asp-action='Index' asp-controller='Home'>Início</a>
+            </li>
+
+            <li class='nav-item @(controller is "Carros" ? "active" : "")'>
+                <a class='nav-link' asp-action='Index' asp-controller='Carros'>Carros</a>
+            </li>
+
+            <li class='nav-item @(controller is "Pessoas" ? "active" : "")'>
+                <a class='nav-link' asp-action='Index' asp-controller='Pessoas'>Pessoas</a>
+            </li>
+
+            <li class='nav-item @(controller is "Cores" ? "active" : "")'>
+                <a class='nav-link' asp-action='Index' asp-controller='Cores'>Cores</a>
+            </li>                                                
+
+            @if(User.IsInRole("Administrador"))
+            {
+                <li class='nav-item @(controller is "Usuarios" ? "active" : "")'>
+                    <a class='nav-link' asp-action='Index' asp-controller='Usuarios'>Usuários</a>
+                </li>                                                
+            }
+
+        </ul>                 
+
+    </div>
+
   </div>
+
 </nav>

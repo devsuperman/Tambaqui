@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Tambaqui.Interfaces;
 using Tambaqui.Models;
 using Tambaqui.Services;
+using Tambaqui.Extensions;
 
 namespace Tambaqui
 {
@@ -54,8 +55,8 @@ namespace Tambaqui
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            UsarCulturaBrasileira(app);
+        {            
+            app.UsarCulturaBrasileira();
 
             if (env.IsDevelopment())
             {
@@ -80,16 +81,6 @@ namespace Tambaqui
             });
         }
 
-        private static void UsarCulturaBrasileira(IApplicationBuilder app)
-        {
-            var ptbr = "pt-BR";
-            var supportedCultures = new[] { new CultureInfo(ptbr) };
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture(culture: ptbr, uiCulture: ptbr),
-                SupportedCultures = supportedCultures,
-                SupportedUICultures = supportedCultures
-            });
-        }
+       
     }
 }

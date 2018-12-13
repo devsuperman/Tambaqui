@@ -18,21 +18,5 @@
 
 @section scripts{       
     
-    <script>
-        $('form').submit(function(e){
-            e.preventDefault();
-
-            var obj = $(this).serialize();
-            var url = $(this).prop('action');
-            var $botao = $('[type=submit]');                        
-
-            
-            this.reset();
-            $botao.prop('disabled', true);
-            $botao.html('<i class="fa fa-circle-notch fa-spin"></i> Email Enviado!');
-
-            swal("Yes!", "Enviamos um email com um link para alterar sua senha!", "success");                
-            $.post(url, obj);             
-        });
-    </script>
+    <script src='~/js/Autenticacao/esqueci-minha-senha.js'></script>
 }

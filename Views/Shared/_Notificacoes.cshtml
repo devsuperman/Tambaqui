@@ -1,0 +1,18 @@
+@{
+    var mensagem = TempData["notificacao"]?.ToString();
+    var exibirNotificacaoDeSucesso = !(string.IsNullOrEmpty(mensagem));    
+}
+
+@if(exibirNotificacaoDeSucesso)
+{
+    <script>
+        
+        new PNotify({
+            title: 'Sucesso!',
+            text: '@mensagem',
+            type: 'success'
+        });
+        
+    </script>
+}   
+    
