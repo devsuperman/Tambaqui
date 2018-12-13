@@ -3,15 +3,12 @@ $(document).ready(function(){
 
     // CarregarDropdownDaSidebar();
 
-    $('select').select2({
-        language: "pt-BR"
-    });
     
     $('.ConfirmarSubmit').click(function (e) {
         e.preventDefault();
-
+        
         var $form = $(this).closest('form');
-
+        
         Swal({
             title: "Tem certeza?",
             text: "A operação não poderá ser desfeita!",
@@ -27,15 +24,15 @@ $(document).ready(function(){
             }
         });
     });
-
+    
     //Ativar ou Desativar registros. Elementos HTML estão em _AcoesIndex.cshtml
     $('.InverterAtivo').click(function(){
-
+        
         var $check = $(this);
         var $form = $(this).closest('form');                
         var url = $form.prop('action');
         var data = $form.serialize();
-
+        
         $.post(url, data)        
         .fail(function(err) { 
             $check.prop('checked', !$check.prop('checked'));
@@ -43,7 +40,10 @@ $(document).ready(function(){
         });       
         
     });  
-
+    
+    // $('select').select2({
+    //     language: "pt-BR"
+    // });
 
     //Select2 Assíncrono, bom para listar munícipios!!!
     // var url_lista = '/controller/listar';

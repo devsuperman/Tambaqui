@@ -3,8 +3,7 @@ using Tambaqui.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-
-
+using Tambaqui.Extensions;
 
 namespace Tambaqui.Controllers
 {
@@ -53,6 +52,7 @@ namespace Tambaqui.Controllers
                 db.Add(cor);
                 
                 await db.SaveChangesAsync();
+                this.NotificarSucesso();
 
                 return RedirectToAction(nameof(Index));
             }
@@ -82,6 +82,7 @@ namespace Tambaqui.Controllers
                 
                 db.Update(cor);
                 await db.SaveChangesAsync();
+                this.NotificarSucesso();
 
                 return RedirectToAction(nameof(Index));
             }

@@ -41,6 +41,7 @@ namespace Tambaqui
 
             services.Configure<ConfiguracaoDeEmail>(Configuration.GetSection("ConfiguracoesDeEmail"));
             services.AddTransient<IEmail, Gmail>();
+            services.AddSession();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(x =>
@@ -68,6 +69,7 @@ namespace Tambaqui
                 app.UseHsts();
             }
 
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
