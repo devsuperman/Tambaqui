@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Editar Pessoa";
+    ViewData["Icone"] = "fa fa-user";
 }
 
 <form asp-action="Editar" method="POST">    
@@ -17,7 +18,7 @@
         </label>                                         
     </div>  
 
-    <button type="submit" class="btn btn-primary"> Salvar </button>
+    <partial name='_SubmitChick' />    
 
 </form>
 

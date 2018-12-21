@@ -30,5 +30,8 @@ namespace Tambaqui.ViewModels
 		[Required, MaxLength(50), EmailAddress]
 		public string Email { get; set; }
 
+        [Required]
+        public string Perfil { get; set; }
+
     }
 }

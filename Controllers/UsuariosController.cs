@@ -17,14 +17,16 @@ namespace Tambaqui.Controllers
         private readonly Contexto db;
         private readonly TiaIdentity tiaIdentity;
         private readonly IEmail email;
+        private readonly GeradorDeListas geradorDeListas;
 
-        public UsuariosController(Contexto db, TiaIdentity tiaIdentity, IEmail email)
+        public UsuariosController(Contexto db, TiaIdentity tiaIdentity, IEmail email, GeradorDeListas geradorDeListas)
         {
             this.db = db;
-            this.email = email;
             this.tiaIdentity = tiaIdentity;
-        }        
-        
+            this.email = email;
+            this.geradorDeListas = geradorDeListas;
+        }
+
         public async Task<IActionResult> Index()
         {
             var usuarios = await db.Usuarios
@@ -37,6 +39,7 @@ namespace Tambaqui.Controllers
         
         public IActionResult Criar()
         {
+            CarregarPerfis();
             return View();
         }       
 
@@ -58,12 +61,14 @@ namespace Tambaqui.Controllers
                 await db.AddAsync(usuario);
                 await db.SaveChangesAsync();
                 
-                await email.EnviarEmailParaCriacaoDeSenha(usuario.Email, usuario.Hash);
+                //TODO: Descomentar se for utilizar
+                // await email.EnviarEmailParaCriacaoDeSenha(usuario.Email, usuario.Hash);
 
                 return RedirectToAction(nameof(Index));
             }
 
-            return View();
+            CarregarPerfis();
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Editar(int id)
@@ -74,6 +79,7 @@ namespace Tambaqui.Controllers
                 NotFound();            
 
             var viewModel = new UsuarioVM(usuario);
+            CarregarPerfis();
 
             return View(viewModel);
         }       
@@ -106,7 +112,8 @@ namespace Tambaqui.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View();
+            CarregarPerfis();
+            return View(model);
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -125,8 +132,10 @@ namespace Tambaqui.Controllers
             return Ok();
         }
 
-        
-       
+        private void CarregarPerfis() => ViewBag.Perfil = geradorDeListas.Perfis();
+
+
+
     }
     
 }

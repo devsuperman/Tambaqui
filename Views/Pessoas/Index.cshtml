@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Pessoas";
+    ViewData["Icone"] = "fa fa-user";
 }
 
 @if (Model.Any())
@@ -25,6 +26,10 @@
             }
         </tbody>
     </table>
+}
+else
+{
+    <partial name='_NaoHaRegistros'/>
 }
 
 @section Scripts {

@@ -46,6 +46,10 @@ code {
   margin-bottom: 0px;
 }
 
+.list-group-item p{  
+  margin-bottom: 0px;
+}
+
 /* Botão flutuantes exibidos no mobile */
 .flutuante{
 	position: fixed;

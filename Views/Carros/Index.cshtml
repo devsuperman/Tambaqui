@@ -2,30 +2,28 @@
 
 @{
     ViewBag.Title = "Carros";
+    ViewData["Icone"] = "fa fa-car";
 }
 
 @if (Model.Any())
 {
-    <table class="table table-hover datatable-show-all">
-        <thead>
-            <tr>
-                <th>Descrição</th>
-                <th>Ativo / Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td> @item.Modelo - @item.Cor.Nome </td>
-                    <td>
-                        <partial name="_AcoesIndex" Model="@item" />
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <ul class='list-group'>
+        @foreach (var item in Model)
+        {   
+            <li class="list-group-item">
+                <a asp-action='Editar' asp-route-id='@item.Id'>            
+                    <p class='mb-0'> <strong> @item.Modelo @item.Cor.Nome </strong></p>
+                    <p> @item.DataDeCadastro.ToShortDateString() </p>                                                
+                </a>
+            </li>    
+        }
+    </ul>
 }
+else
+{
+    <partial name="_NaoHaRegistros"/>
+}
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_DataTable");} 

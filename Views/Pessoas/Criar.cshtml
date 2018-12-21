@@ -2,13 +2,17 @@
 
 @{
     ViewData["Title"] = "Criar Pessoa";
+    ViewData["Icone"] = "fa fa-user";
 }
 
 <form asp-action="Criar" method="POST">    
     <partial name="_Form"/>
-    <button type="submit" class="btn btn-primary"> Salvar </button>
+    <partial name='_SubmitChick' />    
 </form>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src='~/js/ViaCep.js'></script>
+    <script src='~/js/pessoas/scripts.js'></script>
+
 }

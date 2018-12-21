@@ -1,9 +1,11 @@
 ﻿@{
     ViewBag.Title = "Novo Usuário";    
+    ViewData["Icone"] = "fa fa-user";
 }
 
 <form asp-for="Criar" method="POST">    
     <partial name="_Form"/>
+    <partial name='_SubmitChick' />    
 </form>
 
 @section Scripts {

@@ -1,11 +1,13 @@
 ﻿@model Usuario
 @{
-    ViewBag.Title = "Editar Usuário";    
+    ViewBag.Title = "Editar Usuário"; 
+    ViewData["Icone"] = "fa fa-user";   
 }
 
 <form asp-for="Editar" method="POST">    
     <input asp-for='Id' type='hidden'>         
     <partial name="_Form"/>
+    <partial name='_SubmitChick' />    
 </form>
 
 

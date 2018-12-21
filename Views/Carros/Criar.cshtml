@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "Criar Carro";
+    ViewData["Icone"] = "fa fa-car";
 }
 
 <form asp-action="Criar" method="POST">    
     <partial name="_Form"/>
-    <button type="submit" class="btn btn-primary"> Salvar </button>
+    <partial name="_SubmitChick"/>
 </form>
 
 @section Scripts {

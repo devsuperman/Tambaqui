@@ -3,6 +3,7 @@ using Tambaqui.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace Tambaqui.Services
 {
@@ -14,6 +15,17 @@ namespace Tambaqui.Services
         {
             this.db = db;
         }
+
+        public SelectList Perfis()
+        {
+            var lista = new List<string>();
+
+            lista.Add(Models.Perfis.Administrador);
+            lista.Add(Models.Perfis.Comum);            
+            
+            return new SelectList(lista);
+        }        
+
 
         public async Task<SelectList> Cores()
         {

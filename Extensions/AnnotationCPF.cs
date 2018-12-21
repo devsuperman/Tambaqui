@@ -29,7 +29,7 @@ namespace Tambaqui.Extensions
                 throw new ArgumentNullException(nameof(context));            
 
             MergeAttribute(context.Attributes, "data-val", "true");            
-            MergeAttribute(context.Attributes, "data-val-cpfBR", "CPF inválido merge Atribuute");
+            MergeAttribute(context.Attributes, "data-val-cpfBR", "CPF inválido");
         }
 
         private void MergeAttribute(IDictionary<string, string> attributes, string key, string value)

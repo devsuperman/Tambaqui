@@ -2,10 +2,12 @@
 
 @{
     ViewData["Title"] = "Editar Carro";
+    ViewData["Icone"] = "fa fa-car";
 }
 
 <form asp-action="Editar" method="POST">    
-    <input asp-for='Id' type='hidden'>         
+    <input asp-for='Id' type='hidden'>  
+           
     <partial name="_Form"/>
 
     <div class="form-group col-md-4">
@@ -17,7 +19,7 @@
         </label>                                         
     </div>  
 
-    <button type="submit" class="btn btn-primary"> Salvar </button>
+    <partial name="_SubmitChick"/>
 
 </form>
 
