@@ -46,23 +46,23 @@ code {
   margin-bottom: 0px;
 }
 
-.tituloDaLista{
-  color: black;
-  margin-bottom: 0;  
-  font-weight: 600;
+/* Botão flutuantes exibidos no mobile */
+.flutuante{
+	position: fixed;
+	float: bottom;
+	bottom: 40px;
+	right: 15px;
+  z-index: 100;  
 }
 
-.conteudoDaLista{
-  color: gray;  
-}
-.card{
-  border-top: none;
-}
+.botao-flutuante{	
+  width: 56px;  
+  height: 56px;  
+  padding: 0;
+  border-radius: 50%;
+} 
 
-.painel-titulo{
-  font-size: 1.25rem;  
-}
-
-.painel-link:hover{
-  text-decoration: underline white;  
+.botao-flutuante i {
+  line-height: 56px;
+  font-size: 25px;
 }

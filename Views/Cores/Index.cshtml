@@ -2,24 +2,22 @@
 
 @{
     ViewBag.Title = "Cores";
+    ViewBag.Icone = "fa fa-tag";
 }
-
-<a asp-action="Criar" class="btn btn-link">
-    <i class="fa fa-plus-circle"></i>
-    Nova Cor
-</a>
 
 @if (Model.Any())
 {
-    foreach (var item in Model)
-    {        
-        <li class="list-group-item">
-            <a asp-action='Editar' asp-route-id='@item.Id'>            
-                <p class='tituloDaLista'> @item.Nome </p>
-                <p class='conteudoDaLista'> @item.DataDeCadastro.ToShortDateString() </p>                
-            </a>
-        </li>    
-    }
+    <ul class='list-group'>
+        @foreach (var item in Model)
+        {   
+            <li class="list-group-item">
+                <a asp-action='Editar' asp-route-id='@item.Id'>            
+                    <p class='mb-0'> <strong> @item.Nome </strong></p>
+                    <p> @item.DataDeCadastro.ToShortDateString() </p>                                                
+                </a>
+            </li>    
+        }
+    </ul>
 }
 else
 {

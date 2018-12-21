@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "Criar Cor";
+    ViewBag.Icone = "fa fa-tag";
 }
 
 <form asp-action="Criar" method="POST">    
-    <partial name="_Form"/>
-    <button type="submit" class="btn btn-primary"> Salvar </button>
+    <partial name="_Form"/>    
+    <partial name='_SubmitChick' />    
 </form>
 
 @section Scripts {

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Editar Cor";
+    ViewBag.Icone = "fa fa-tag";
 }
 
 <form asp-action="Editar" method="POST">    
@@ -19,7 +20,7 @@
         </label>                                         
     </div>  
 
-    <button type="submit" class="btn btn-primary"> Salvar </button>
+    <partial name='_SubmitChick' />    
 
 </form>
 

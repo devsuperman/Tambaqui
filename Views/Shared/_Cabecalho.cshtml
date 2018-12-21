@@ -1,28 +1,51 @@
-﻿
-@{
-    var action = ViewContext.RouteData.Values["action"].ToString();
-    var controller = ViewContext.RouteData.Values["controller"].ToString();
+﻿@{
+    var action = ViewContext.RouteData.Values["action"].ToString().ToLower(); 
+    var id = ViewContext.RouteData.Values["id"]?.ToString();
+    var temBotaoDeEditar = (action is "detalhes");
+    var temBotaoDeCriar = (action is "index");
+    var temBotaoSalvar = (action is "criar" || action is "editar");
 }
 
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    
-    <h1 class="h2">
-        @if (!(controller.Equals("Home") && action.Equals("Index")))
-        {            
-            <a asp-action="index" asp-controller='@(action.Equals("Index") ? "Home" : controller)' title="Voltar">                    
-                <i class="far fa-arrow-alt-circle-left"></i>
-            </a>
-        }    
-    
-         @ViewBag.Title 
-         
-    </h1>    
+<div class='d-none d-sm-block'>            
+    <h1 class='h2 mt-4'>
 
-    @if (!controller.Equals("Home") && action.Equals("Index"))
-    {
-        <a asp-action="Criar" class="btn btn-link">
-            <i class="fa fa-plus-circle"></i>
-            Novo Registro
-        </a>
-    }
+        @if (temBotaoDeCriar)
+        {                        
+            <a asp-action='Criar' class='btn btn-primary' title='Criar Novo'>
+                <i class='fa fa-plus'></i>
+            </a>            
+        }
+
+        @if (temBotaoDeEditar)
+        {            
+            <a asp-action='Editar' class='btn btn-primary' asp-route-id='@id' title="Editar">
+                <i class='fa fa-edit'></i>
+            </a>
+        }
+
+        <i class='@ViewBag.Icone'></i>
+        @ViewBag.Title
+    </h1>
+
+    <hr>
+</div>                   
+
+<div class='d-block d-md-none'>
+    @if (temBotaoDeCriar)
+        {                        
+            <div class="flutuante">    
+                <a asp-action='criar' class="btn btn-primary botao-flutuante">
+                    <i class='fa fa-plus'></i>
+                </a>
+            </div>            
+        }
+
+    @if (temBotaoDeEditar)
+    {            
+        <div class="flutuante">    
+            <a asp-action='Editar' class='btn btn-primary botao-flutuante' asp-route-id='@id' title="Editar">            
+                <i class='fa fa-edit'></i> 
+            </a>
+        </div>          
+    }    
 </div>

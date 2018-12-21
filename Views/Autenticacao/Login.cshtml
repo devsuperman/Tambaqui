@@ -3,9 +3,11 @@
 @{
     ViewBag.Title = "Entrar";
     Layout = "_LayoutPublico";
+    var returnUrl = Context.Request.Query["ReturnUrl"].ToString();
 }  
   
 <form asp-action="Login" method="post" class="form-signin">
+    <input asp-for='ReturnUrl' value="@returnUrl" type='hidden'>
     <img class="mb-4 logo" src="http://www.simpeixes.com.br/wp-content/uploads/personalize-image-post-id-84/tambaqui-350x180-1.png" alt="">
 
     <h1 class="h3 mb-3 font-weight-normal">Tambaqui</h1>

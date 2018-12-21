@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Tambaqui.Interfaces;
-using System.Text;
 
 namespace Tambaqui.Services
 {
@@ -22,16 +21,14 @@ namespace Tambaqui.Services
             this.codificador = codificador;
         }
 
-        internal async Task LoginAsync(string cpf, string nome, bool lembrar, bool ehAdmin)
+        internal async Task LoginAsync(Usuario usuario, bool lembrar)
         {
             var claims = new List<Claim>
                 {   
-                    new Claim(ClaimTypes.Name, nome),                                     
-                    new Claim(ClaimTypes.NameIdentifier, cpf)                                        
+                    new Claim(ClaimTypes.Name, usuario.Nome),                                     
+                    new Claim(ClaimTypes.NameIdentifier, usuario.CPF),
+                    new Claim(ClaimTypes.Role, usuario.Perfil)                                                        
                 };
-
-            if (ehAdmin)            
-                claims.Add(new Claim(ClaimTypes.Role, "Administrador"));            
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 

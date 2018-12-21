@@ -34,7 +34,7 @@ namespace Tambaqui.Models
 
 		public bool HashUtilizado {get;set;}
 
-        public bool ehAdmin { get; set; }
+        public string Perfil { get; set; }
 
         public void AlterarSenha(string senhaCriptografada)
         {

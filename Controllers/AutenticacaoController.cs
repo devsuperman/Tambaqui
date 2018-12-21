@@ -43,7 +43,7 @@ namespace Tambaqui.Controllers
 
             if (ModelState.IsValid)
             {                
-                await tiaIdentity.LoginAsync(usuario.CPF, usuario.Nome, viewmodel.Lembrar, usuario.ehAdmin);
+                await tiaIdentity.LoginAsync(usuario, viewmodel.Lembrar);
                 return RedirectToAction("Index","Home");
             }
 

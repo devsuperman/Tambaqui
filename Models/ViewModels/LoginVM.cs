@@ -12,5 +12,7 @@ namespace Tambaqui.ViewModels
 
         public bool Lembrar { get; set; }
 
+        public string ReturnUrl {get;set;}
+
     }
 }
