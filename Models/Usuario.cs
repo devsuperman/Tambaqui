@@ -36,21 +36,16 @@ namespace Tambaqui.Models
 
         public string Perfil { get; set; }
 
-        public void AlterarSenha(string senhaCriptografada)
-        {
-            this.Senha = senhaCriptografada;
-        }
+        public void AlterarSenha(string senhaCriptografada) => this.Senha = senhaCriptografada;
 
+        public void UtilizarHash() => this.HashUtilizado = true;
+        
         public void GerarNovaHash()
         {
             this.Hash = Guid.NewGuid().ToString();
             this.HashUtilizado = false;
         }
 
-        public void UtilizarHash()
-        {
-            this.HashUtilizado = true;
-        }
 
         public void Atualizar(string nome, string cpf, string email)
         {
