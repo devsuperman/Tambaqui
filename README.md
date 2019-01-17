@@ -8,7 +8,7 @@
 * Classe de implementação da API de Storage do Azure
 * Classe de armazenamento de arquivos na raiz do projeto
 * Autenticação simples com envio de mail para redefinição de senha após cadastro e esqueci minha senha
-* Autorização simples com 2 perfis básicos, admin e usuário convencional
+* TiaIdentity, Autenticação, Autorização e simplicidade!
 * Classe de criptografia de dados com SHA512
 * Interface e Classe de configuração de Serviços de Email
 * Botão 'switch' com css puro

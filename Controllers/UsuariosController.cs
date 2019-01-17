@@ -15,14 +15,12 @@ namespace Tambaqui.Controllers
     public class UsuariosController : Controller
     {
         private readonly Contexto db;
-        private readonly TiaIdentity tiaIdentity;
         private readonly IEmail email;
         private readonly GeradorDeListas geradorDeListas;
 
-        public UsuariosController(Contexto db, TiaIdentity tiaIdentity, IEmail email, GeradorDeListas geradorDeListas)
+        public UsuariosController(Contexto db, IEmail email, GeradorDeListas geradorDeListas)
         {
             this.db = db;
-            this.tiaIdentity = tiaIdentity;
             this.email = email;
             this.geradorDeListas = geradorDeListas;
         }

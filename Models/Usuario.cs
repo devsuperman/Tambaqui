@@ -1,9 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
+using TiaIdentity;
 
 namespace Tambaqui.Models
 {
-    public class Usuario : Registro
+    public class Usuario : Registro, IUsuario
 	{		
         public Usuario()
         {
@@ -21,6 +24,8 @@ namespace Tambaqui.Models
         [Required, MaxLength(50)]
         public string Nome { get; set; }
 
+        public string Login { get => Nome;  }
+
 		[Required, MaxLength(11)]
 		public string CPF { get; set; }
 
@@ -36,7 +41,7 @@ namespace Tambaqui.Models
 
         public string Perfil { get; set; }
 
-        public void AlterarSenha(string senhaCriptografada) => this.Senha = senhaCriptografada;
+        public void AlterarSenha(string novaSenha) => this.Senha = CriptografarSenha(novaSenha);
 
         public void UtilizarHash() => this.HashUtilizado = true;
         
@@ -52,6 +57,26 @@ namespace Tambaqui.Models
             this.Nome=nome;
             this.CPF = cpf;
             this.Email = email;
+        }
+
+        internal bool SenhaCorreta(string senha)
+        {
+            var senhaDigitadaCriptografada = CriptografarSenha(senha);
+            return (this.Senha == senhaDigitadaCriptografada);
+        }
+
+        private string CriptografarSenha(string txt)
+        {            
+            var algoritmo = SHA512.Create();
+            var senhaEmBytes = Encoding.UTF8.GetBytes(txt);
+            var senhaCifrada = algoritmo.ComputeHash(senhaEmBytes);
+            
+            var sb = new StringBuilder();
+            
+            foreach (var caractere in senhaCifrada)            
+                sb.Append(caractere.ToString("X2"));
+            
+            return sb.ToString();
         }
     }
 }

@@ -14,29 +14,26 @@ namespace Tambaqui.Controllers
     public class AutenticacaoController : Controller
     {
         private readonly Contexto db;
-        private readonly TiaIdentity tiaIdentity;        
+        private readonly TiaIdentity.Autenticador tiaIdentity;        
         private readonly ICodificador codificador;
         private readonly IEmail servicoDeEmail;
 
-        public AutenticacaoController(Contexto db, TiaIdentity tiaIdentity, ICodificador codificador, IEmail servicoDeEmail)
+        public AutenticacaoController(Contexto db, TiaIdentity.Autenticador tiaIdentity, ICodificador codificador, IEmail servicoDeEmail)
         {
             this.db = db;
             this.servicoDeEmail = servicoDeEmail;
             this.tiaIdentity = tiaIdentity;            
             this.codificador = codificador;
-        }        
-        
-        public IActionResult Login()
-        {
-            return View();
         }
+
+        public IActionResult Login() => View();
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM viewmodel)
         {   
             var usuario = await db.Usuarios.FirstOrDefaultAsync(a => a.CPF == viewmodel.Usuario && a.Ativo);
             
-            var cpfOuSenhaIncorretos = (usuario == null) || !(tiaIdentity.SenhaCorreta(viewmodel.Senha, usuario.Senha));
+            var cpfOuSenhaIncorretos = (usuario == null) || !(usuario.SenhaCorreta(viewmodel.Senha));
                 
             if (cpfOuSenhaIncorretos)            
                 ModelState.AddModelError("", "Usuário ou Senha incorretos!");
@@ -54,12 +51,9 @@ namespace Tambaqui.Controllers
         {
             await tiaIdentity.LogoutAsync();
             return View(nameof(Login));
-        }     
-
-        public ActionResult EsqueciMinhaSenha()
-        {
-            return View();
         }
+
+        public ActionResult EsqueciMinhaSenha() => View();
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> EsqueciMinhaSenha(string email)
@@ -108,9 +102,8 @@ namespace Tambaqui.Controllers
                     //this.Atencao("Link expirado!");
                     return RedirectToAction(nameof(Login));
                 }
-                
-                var senhaCriptografada = codificador.GerarHash(viewModel.NovaSenha);
-                usuario.AlterarSenha(senhaCriptografada);
+                                
+                usuario.AlterarSenha(viewModel.NovaSenha);
                 usuario.UtilizarHash();
                 
                 db.Update(usuario);

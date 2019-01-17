@@ -32,9 +32,10 @@ namespace Tambaqui
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddHttpContextAccessor();
+            services.AddTiaIdentity().AddCookie(o => {
+                o.LoginPath = "autenticacao/login";
+            });
             
-            services.AddTransient<Services.TiaIdentity>();
             services.AddTransient<Services.GeradorDeListas>();
             
             services.AddTransient<ICodificador, CodificadorSHA>();
