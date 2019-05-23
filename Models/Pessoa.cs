@@ -4,8 +4,10 @@ using Tambaqui.Extensions;
 
 namespace Tambaqui.Models
 {
-    public class Pessoa : Registro
+    public class Pessoa
     {   
+        public int Id { get; set; }        
+
         [Required]      
         public string Nome { get; set; }
         
@@ -15,12 +17,10 @@ namespace Tambaqui.Models
         [Required, Display(Name ="Data"), DataType(DataType.Date)]
         public DateTime DataDeContratação { get; set; }
 
-        [DataType(DataType.Currency)]
-        public double Salario { get; set; }
+        public Endereco Endereco { get; set; }   
 
-        [EmailAddress]
-        public string Email { get; set; }
+        public bool Ativo { get; set; } = true;     
 
-        public Endereco Endereco { get; set; }            
+        public void InverterAtivo() => Ativo = !Ativo;         
     }
 }

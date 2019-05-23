@@ -9,9 +9,6 @@ namespace Tambaqui.Models
 
         }
                 
-        public DbSet<Carro> Carros {get;set;}
-        public DbSet<Cor> Cores {get;set;} 
         public DbSet<Pessoa> Pessoas {get;set;}
-        public DbSet<Usuario> Usuarios {get;set;}
     }
 }

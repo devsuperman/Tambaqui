@@ -9,7 +9,7 @@ namespace Tambaqui.Services
 {
     public class DiscoRigido : IStorage
     {
-        private const string caminho = "C:\\DER-RO\\uploads";
+        private const string caminho = "C:\\MeuSistema\\uploads";
 
         public async Task<byte[]> Download(string localizador)
         {

@@ -10,8 +10,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">    
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">    
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"/> -->
-    <!-- <link rel='stylesheet' href="~/css/pnotify.custom.min.css" />     -->
+    <link href='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/PNotifyBrightTheme.min.css' rel="stylesheet" >
     <link rel="stylesheet" href="~/css/site.css" >
     <link rel="stylesheet" href="~/css/switch.css" />     
 
@@ -23,33 +22,31 @@
   </header>
 
   <main role="main" class="container">          
-
-      @if(!IsSectionDefined("cabecalho"))
-      {
-          <partial name="_Cabecalho"/>
-      }        
-      
-      @RenderSection("cabecalho", required: false)
-
       @RenderBody()      
   </main>
 
-  <partial name="_Rodape"/>
+   <footer class="footer">
+    <div class="container">
+        <span class="text-muted"></span>        
+        © Tambaqui      
+    </div>
+</footer>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.31.1/dist/sweetalert2.all.min.js"></script>       
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
-  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>     -->
-  <!-- <script src="~/js/pnotify.custom.min.js"></script> -->
-  <!-- <script src="~/js/ViaCep.js"></script> -->
+
+  <script src='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/iife/PNotify.min.js'></script>   
+  <script src='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/iife/PNotifyButtons.min.js'></script>   
+  <script src='https://cdn.jsdelivr.net/npm/pnotify@4.0.0-beta.2/dist/iife/PNotifyMobile.min.js'></script>   
+  
   <script src="~/js/site.js"></script>
    
 
   @RenderSection("scripts", required: false)
 
-  <partial name="_Notificacoes"/>
+  <partial name="_Alertas"/>
 
 </body>
 </html>

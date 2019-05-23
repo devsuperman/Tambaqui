@@ -4,20 +4,6 @@ $.validator.unobtrusive.adapters.add('cpfBR', {}, function (options) {
     options.messages['cpfBR'] = options.message;
 });
 
-//Impede que os usuários submitem um form mais de um vez em sequência
-$('form').submit(function () {
-    var formValido = $(this).valid();
-
-    if (formValido) {
-        var $botoes = $(this).find('[type=submit]');
-
-        $botoes.each(function () {
-            $(this).prop('disabled', true);
-            $(this).html('<i class="fa fa-circle-notch fa-spin"></i> Carregando');
-        });
-    }
-});
-
 //Substitui o ponto pela virgula ao validar inputs decimais. Muito adequado para inputs de valor monetário.
 $.validator.methods.range = function (value, element, param) {
     var globalizedValue = value.replace(",", ".");
@@ -27,3 +13,29 @@ $.validator.methods.range = function (value, element, param) {
 $.validator.methods.number = function (value, element) {
     return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
 };
+
+DesabilitarBotaoDeSubmitAposClique();
+
+function DesabilitarBotaoDeSubmitAposClique() {
+
+    var $forms = document.querySelectorAll('form');
+
+    $forms.forEach(form => {
+
+        form.addEventListener('submit', (e) => {
+
+            var formValido = e.target.checkValidity();
+
+            if (formValido) {                
+                var $botoes = e.target.querySelectorAll('[type=submit]');
+
+                $botoes.forEach(b => {
+                    b.setAttribute('disabled', true);                    
+                });
+
+            }
+
+        });
+        
+    });
+}

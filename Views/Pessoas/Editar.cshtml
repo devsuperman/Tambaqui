@@ -2,8 +2,16 @@
 
 @{
     ViewData["Title"] = "Editar Pessoa";
-    ViewData["Icone"] = "fa fa-user";
 }
+
+<div class='d-none d-sm-block'>            
+    <h1 class='h2 mt-4'>      
+        <i class='fa fa-user'></i>
+        @ViewBag.Title
+    </h1>
+
+    <hr>
+</div> 
 
 <form asp-action="Editar" method="POST">    
     <input asp-for='Id' type='hidden'>         
@@ -18,7 +26,7 @@
         </label>                                         
     </div>  
 
-    <partial name='_SubmitChick' />    
+    <button type="submit" class="btn btn-primary"> Salvar </button>
 
 </form>
 

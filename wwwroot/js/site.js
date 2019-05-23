@@ -1,29 +1,6 @@
-﻿
-$(document).ready(function(){
+﻿$(document).ready(function(){
 
-    // CarregarDropdownDaSidebar();
-
-    
-    $('.ConfirmarSubmit').click(function (e) {
-        e.preventDefault();
-        
-        var $form = $(this).closest('form');
-        
-        Swal({
-            title: "Tem certeza?",
-            text: "A operação não poderá ser desfeita!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonText: 'Sim, quero continuar!',
-            cancelButtonText: 'Cancelar',
-            cancelButtonColor: '#d33'                        
-        })
-        .then((confirmado) => {
-            if (confirmado) {
-                $form.submit();
-            }
-        });
-    });
+    CarregarFuncaoDeConfirmarSubmit();
     
     //Ativar ou Desativar registros. Elementos HTML estão em _AcoesIndex.cshtml
     $('.InverterAtivo').click(function(){
@@ -39,53 +16,34 @@ $(document).ready(function(){
             alert('Um Erro foi encontrado. Se o erro persistir, contate o suporte técnico.');
         });       
         
-    });  
-    
-    // $('select').select2({
-    //     language: "pt-BR"
-    // });
-
-    //Select2 Assíncrono, bom para listar munícipios!!!
-    // var url_lista = '/controller/listar';
-    // $('.carregarListaAsync').select2({
-    //     placeholder: "Selecione",
-    //     language: "pt-BR",
-    //     minimumInputLength: 3,
-    //     ajax: {
-    //         url: url_lista,
-    //         dataType: 'json',
-    //         delay: 250,
-    //         data: function (params) {
-    //             return {
-    //                 search: params.term
-    //             };
-    //         },
-    //         processResults: function (data) {
-    //             return {
-    //                 results: data
-    //             }
-    //         },
-    //         cache: true
-    //     }
-    // });
-
+    });      
+   
 });
 
-// function CarregarDropdownDaSidebar() {   
+function CarregarFuncaoDeConfirmarSubmit() {
 
-//     var dropdown = document.getElementsByClassName("dropdown-btn");
-//     var i;
-//     for (i = 0; i < dropdown.length; i++) {
+    var $elementos = document.querySelectorAll('.ConfirmarSubmit');
+
+    $elementos.forEach(element => {
         
-//         dropdown[i].addEventListener("click", function () {            
-//             this.classList.toggle("active");
-//             var dropdownContent = this.nextElementSibling;
-//             if (dropdownContent.style.display === "block") {
-//                 dropdownContent.style.display = "none";
-//             }
-//             else {
-//                 dropdownContent.style.display = "block";
-//             }
-//         });
-//     }
-// }
+        element.addEventListener('click', (event) => {
+            
+            event.preventDefault();
+            var $form = event.target.closest('form');
+
+            Swal.fire({
+                title: "Tem certeza?",
+                text: "A operação não poderá ser desfeita!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Sim, quero continuar!',
+                cancelButtonText: 'Cancelar'
+            })
+            .then((result) => {
+                if (result.value) {
+                    $form.submit();
+                }
+            });    
+        })
+    });   
+}

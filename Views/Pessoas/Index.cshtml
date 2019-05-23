@@ -2,8 +2,23 @@
 
 @{
     ViewBag.Title = "Pessoas";
-    ViewData["Icone"] = "fa fa-user";
 }
+
+
+<div class='d-none d-sm-block'>            
+    <h1 class='h2 mt-4'>
+                 
+        <a asp-action='Criar' class='btn btn-primary' title='Criar Novo'>
+            <i class='fa fa-plus'></i>
+        </a>            
+        
+        <i class='fa fa-user'></i>
+        @ViewBag.Title
+
+    </h1>
+
+    <hr>
+</div> 
 
 @if (Model.Any())
 {
@@ -20,7 +35,18 @@
                 <tr>
                     <td> @item.Nome </td>
                     <td>
-                        <partial name="_AcoesIndex" Model="@item" />
+
+                        <form asp-action="InverterAtivo" method="POST">    
+                            <input type="hidden" name="id" value="@item.Id">
+                            <label class="switch">
+                                <input class="InverterAtivo" type="checkbox" @(item.Ativo ? "checked" : "")>
+                                <span class="slider round"></span>
+                            </label>            
+                            <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-link " title="Editar">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </form>
+
                     </td>
                 </tr>
             }
@@ -28,8 +54,13 @@
     </table>
 }
 else
-{
-    <partial name='_NaoHaRegistros'/>
+{    
+    <p class='h2 text-center mt-4'>
+        😅 
+        <br>
+        <br>
+        Ainda não há registros nesta página.
+    </p>
 }
 
 @section Scripts {

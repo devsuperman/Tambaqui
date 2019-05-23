@@ -28,26 +28,11 @@
 
             <li class='nav-item @(controller is "Home" ? "active" : "")'>
                 <a class='nav-link' asp-action='Index' asp-controller='Home'>Início</a>
-            </li>
+            </li>           
 
-            <li class='nav-item @(controller is "Carros" ? "active" : "")'>
-                <a class='nav-link' asp-action='Index' asp-controller='Carros'>Carros</a>
-            </li>
-
-            <li class='nav-item @(controller is "Pessoas" ? "active" : "")'>
-                <a class='nav-link' asp-action='Index' asp-controller='Pessoas'>Pessoas</a>
-            </li>
-
-            <li class='nav-item @(controller is "Cores" ? "active" : "")'>
-                <a class='nav-link' asp-action='Index' asp-controller='Cores'>Cores</a>
-            </li>                                                
-
-            @if(User.IsInRole(Perfis.Administrador))
-            {
-                <li class='nav-item @(controller is "Usuarios" ? "active" : "")'>
-                    <a class='nav-link' asp-action='Index' asp-controller='Usuarios'>Usuários</a>
+                <li class='nav-item @(controller is "Pessoas" ? "active" : "")'>
+                    <a class='nav-link' asp-action='Index' asp-controller='Pessoas'>Pessoas</a>
                 </li>                                                
-            }
 
         </ul>                 
 

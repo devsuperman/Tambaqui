@@ -7,6 +7,8 @@ using System.Collections.Generic;
 
 namespace Tambaqui.Services
 {
+    // Se for usar, adicione a seguint liha no startup do projeto
+    // services.AddTransient<Services.GeradorDeListas>();  
     public class GeradorDeListas
     {
         private readonly Contexto db;
@@ -27,14 +29,14 @@ namespace Tambaqui.Services
         }        
 
 
-        public async Task<SelectList> Cores()
-        {
-            var lista = await db.Cores                
-                .Select(w => new {w.Id, w.Nome})
-                .AsNoTracking()
-                .ToListAsync();
+        // public async Task<SelectList> Cores()
+        // {
+        //     var lista = await db.Cores                
+        //         .Select(w => new {w.Id, w.Nome})
+        //         .AsNoTracking()
+        //         .ToListAsync();
             
-            return new SelectList(lista, "Id", "Nome");
-        }        
+        //     return new SelectList(lista, "Id", "Nome");
+        // }        
     }
 }
