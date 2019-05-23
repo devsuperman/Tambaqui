@@ -6,8 +6,9 @@ namespace Tambaqui.Interfaces
 {
     public interface IStorage
     {
-        Task Upload(IAnexo anexo, IFormFile arquivo);
-        Task<byte[]> Download(IAnexo anexo);
-        Task Excluir(IAnexo anexo);        
+        Task Upload(string localizador, IFormFile arquivo);
+        Task<byte[]> Download(string localizador);        
+        Task SubstituirAnexo(Anexo anexo, IFormFile arquivoNovo);
+        Task Excluir(string localizador);      
     }    
 }
